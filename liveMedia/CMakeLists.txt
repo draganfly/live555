@@ -423,12 +423,14 @@ if(NOT LIVE555_MONOLITH_BUILD)
     live555_target_version(liveMedia AUTO)
 endif()
 
-install(TARGETS liveMedia EXPORT live555Target
-    INCLUDES DESTINATION include/liveMedia
-    RUNTIME DESTINATION bin/$<CONFIG>
-    LIBRARY DESTINATION lib/$<CONFIG>
-    ARCHIVE DESTINATION lib/$<CONFIG>
-)
-install(FILES ${headers}
-    DESTINATION include/liveMedia
-)
+if(LIVE555_INSTALL)
+    install(TARGETS liveMedia EXPORT live555Target
+        INCLUDES DESTINATION include/liveMedia
+        RUNTIME DESTINATION bin/$<CONFIG>
+        LIBRARY DESTINATION lib/$<CONFIG>
+        ARCHIVE DESTINATION lib/$<CONFIG>
+    )
+    install(FILES ${headers}
+        DESTINATION include/liveMedia
+    )
+endif()

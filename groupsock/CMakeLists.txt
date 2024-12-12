@@ -84,12 +84,14 @@ if(NOT LIVE555_MONOLITH_BUILD)
     live555_target_version(groupsock AUTO)
 endif()
 
-install(TARGETS groupsock EXPORT live555Target
-    INCLUDES DESTINATION include/groupsock
-    RUNTIME DESTINATION bin/$<CONFIG>
-    LIBRARY DESTINATION lib/$<CONFIG>
-    ARCHIVE DESTINATION lib/$<CONFIG>
-)
-install(FILES ${headers}
-    DESTINATION include/groupsock
-)
+if(LIVE555_INSTALL)
+    install(TARGETS groupsock EXPORT live555Target
+        INCLUDES DESTINATION include/groupsock
+        RUNTIME DESTINATION bin/$<CONFIG>
+        LIBRARY DESTINATION lib/$<CONFIG>
+        ARCHIVE DESTINATION lib/$<CONFIG>
+    )
+    install(FILES ${headers}
+        DESTINATION include/groupsock
+    )
+endif()
