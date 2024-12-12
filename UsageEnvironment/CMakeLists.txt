@@ -64,12 +64,14 @@ if(NOT LIVE555_MONOLITH_BUILD)
     live555_target_version(UsageEnvironment AUTO)
 endif()
 
-install(TARGETS UsageEnvironment EXPORT live555Target
-    INCLUDES DESTINATION include/UsageEnvironment
-    RUNTIME DESTINATION bin/$<CONFIG>
-    LIBRARY DESTINATION lib/$<CONFIG>
-    ARCHIVE DESTINATION lib/$<CONFIG>
-)
-install(FILES ${headers}
-    DESTINATION include/UsageEnvironment
-)
+if(LIVE555_INSTALL)
+    install(TARGETS UsageEnvironment EXPORT live555Target
+        INCLUDES DESTINATION include/UsageEnvironment
+        RUNTIME DESTINATION bin/$<CONFIG>
+        LIBRARY DESTINATION lib/$<CONFIG>
+        ARCHIVE DESTINATION lib/$<CONFIG>
+    )
+    install(FILES ${headers}
+        DESTINATION include/UsageEnvironment
+    )
+endif()

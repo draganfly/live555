@@ -71,12 +71,14 @@ if(NOT LIVE555_MONOLITH_BUILD)
     )
 endif()
 
-install(TARGETS EpollTaskScheduler EXPORT live555Target
-    INCLUDES DESTINATION include/EpollTaskScheduler
-    RUNTIME DESTINATION bin/$<CONFIG>
-    LIBRARY DESTINATION lib/$<CONFIG>
-    ARCHIVE DESTINATION lib/$<CONFIG>
-)
-install(FILES ${headers}
-    DESTINATION include/EpollTaskScheduler
-)
+if(LIVE555_INSTALL)
+    install(TARGETS EpollTaskScheduler EXPORT live555Target
+        INCLUDES DESTINATION include/EpollTaskScheduler
+        RUNTIME DESTINATION bin/$<CONFIG>
+        LIBRARY DESTINATION lib/$<CONFIG>
+        ARCHIVE DESTINATION lib/$<CONFIG>
+    )
+    install(FILES ${headers}
+        DESTINATION include/EpollTaskScheduler
+    )
+endif()
