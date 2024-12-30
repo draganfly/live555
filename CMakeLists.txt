@@ -114,26 +114,26 @@ else()
     )
 endif()
 
-if ( LIVE555_ENABLE_OPENSSL )
-    message(STATUS "find package OpenSSL.")
-    set(EMSCRIPTEN_ROOT_PATH "$ENV{SYSROOT}")
-    if(WIN32)
-      find_package(OpenSSL REQUIRED COMPONENTS Crypto SSL)
-      target_link_libraries(live555_cxx_flags INTERFACE
-         OpenSSL::SSL
-         OpenSSL::Crypto
-      )
-    else ()
-      find_package(OpenSSL 1.1.1 REQUIRED COMPONENTS Crypto SSL)
-      target_link_libraries(live555_cxx_flags INTERFACE
-        OpenSSL::Crypto
-        OpenSSL::SSL
-      )
-    endif()
-else()
+#if ( LIVE555_ENABLE_OPENSSL )
+#   message(STATUS "find package OpenSSL.")
+#   set(EMSCRIPTEN_ROOT_PATH "$ENV{SYSROOT}")
+#   if(WIN32)
+#     find_package(OpenSSL REQUIRED COMPONENTS Crypto SSL)
+#     target_link_libraries(live555_cxx_flags INTERFACE
+#        OpenSSL::SSL
+#        OpenSSL::Crypto
+#     )
+#   else ()
+#     find_package(OpenSSL 1.1.1 REQUIRED COMPONENTS Crypto SSL)
+#     target_link_libraries(live555_cxx_flags INTERFACE
+#       OpenSSL::Crypto
+#       OpenSSL::SSL
+#     )
+#   endif()
+#else()
     message(STATUS "build without OpenSSL.")
     target_compile_definitions(live555_cxx_flags INTERFACE NO_OPENSSL=1)
-endif()
+#endif()
 
 # if ( NOT DEFINED CMAKE_GETIFADDRS )
 #     add_definitions(-DNO_GETIFADDRS)
@@ -316,26 +316,26 @@ if(LIVE555_MONOLITH_BUILD)
           $<BUILD_INTERFACE:${live555_SOURCE_DIR}/EpollTaskScheduler/include>)
       add_library(live555::EpollTaskScheduler ALIAS EpollTaskScheduler)
    endif()
-   if(LIVE555_ENABLE_OPENSSL)
-      message(STATUS "find package OpenSSL.")
-      find_package(OpenSSL REQUIRED COMPONENTS Crypto SSL)
-
-      if(OpenSSL_FOUND)
-         message(STATUS "=============================================================")
-         message(STATUS "OpenSSL Notification.")
-         message(STATUS "Using OpenSSL ${OPENSSL_VERSION}")
-         message(STATUS "OpenSSL Include Dir: ${OPENSSL_INCLUDE_DIR}")
-         message(STATUS "OpenSSL Libs: ${OPENSSL_LIBRARIES}")
-         message(STATUS "=============================================================")
-         target_link_libraries(live555 PUBLIC
-            OpenSSL::SSL
-            OpenSSL::Crypto
-         )
-      endif(OpenSSL_FOUND)
-   else()
+#   if(LIVE555_ENABLE_OPENSSL)
+#     message(STATUS "find package OpenSSL.")
+#     find_package(OpenSSL REQUIRED COMPONENTS Crypto SSL)
+#
+#     if(OpenSSL_FOUND)
+#        message(STATUS "=============================================================")
+#        message(STATUS "OpenSSL Notification.")
+#        message(STATUS "Using OpenSSL ${OPENSSL_VERSION}")
+#        message(STATUS "OpenSSL Include Dir: ${OPENSSL_INCLUDE_DIR}")
+#        message(STATUS "OpenSSL Libs: ${OPENSSL_LIBRARIES}")
+#        message(STATUS "=============================================================")
+#        target_link_libraries(live555 PUBLIC
+#           OpenSSL::SSL
+#           OpenSSL::Crypto
+#        )
+#     endif(OpenSSL_FOUND)
+#  else()
       message(STATUS "build without OpenSSL.")
       target_compile_definitions(live555 INTERFACE NO_OPENSSL=1)
-   endif()
+#  endif()
    add_library(live555::live555 ALIAS live555)
    add_library(live555::UsageEnvironment ALIAS live555)
    add_library(live555::groupsock ALIAS live555)
